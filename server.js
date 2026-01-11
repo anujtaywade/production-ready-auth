@@ -1,11 +1,13 @@
 const express = require('express')
-const app = require()
+const app = express()
 const port = 3000
 
 
 app.get('/',(req,res)=>{
-    res.send("hello world")
+    res.send("production ready auth")
 })
+
+app.use("/auth",require("./src/routes/authRoute"))
 
 app.listen(port,()=>{
     console.log(`server running on port ${port}`)
