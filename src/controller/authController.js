@@ -37,10 +37,25 @@ exports.signup =async (req,res) => {
 
 
 exports.login = async (req,res) => {
-    res.send("login")
+    const {email , password} = req.body
+
+    if (!email || !password) {
+        res.status(409).json({message : "All feilds are mandatory"})
+    }
+
+    const existingUser = await User.findOne({email})
+
+    if (!existingUser) {
+        res.status(409).json({message : "User not found"})
+    }
+
+    const isMatch = await bcrypt.compare(password , existingUser.password)
+    if(!isMatch) {
+        res.status(401).json({message : "invalid password"})
+    }
 }
 
 
 exports.logout= async (req,res) => {
-    res.send("logout")
+    
 }
