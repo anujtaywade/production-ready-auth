@@ -37,7 +37,8 @@ exports.signup =async (req,res) => {
 
 
 exports.login = async (req,res) => {
-    const {email , password} = req.body
+    try {
+        const {email , password} = req.body
 
     if (!email || !password) {
         res.status(409).json({message : "All feilds are mandatory"})
@@ -52,6 +53,9 @@ exports.login = async (req,res) => {
     const isMatch = await bcrypt.compare(password , existingUser.password)
     if(!isMatch) {
         res.status(401).json({message : "invalid password"})
+    }
+    } catch (error) {
+        
     }
 }
 
