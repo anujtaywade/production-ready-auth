@@ -38,19 +38,19 @@ exports.signup =async (req,res) => {
 
 exports.login = async (req,res) => {
     try {
-        const {email , password} = req.body
+        const {email , password} = req.body   // take crenditional for req.body 
 
     if (!email || !password) {
-        res.status(409).json({message : "All feilds are mandatory"})
+        res.status(409).json({message : "All feilds are mandatory"})    // validate the crenditionals
     }
 
-    const existingUser = await User.findOne({email})
+    const existingUser = await User.findOne({email})   // find the user in database
 
     if (!existingUser) {
-        res.status(409).json({message : "User not found"})
+        res.status(409).json({message : "User not found"})  // check if exist 
     }
 
-    const isMatch = await bcrypt.compare(password , existingUser.password)
+    const isMatch = await bcrypt.compare(password , existingUser.password)  // compare harshed password
     if(!isMatch) {
         res.status(401).json({message : "invalid password"})
     }
@@ -62,5 +62,10 @@ exports.login = async (req,res) => {
 
 
 exports.logout= async (req,res) => {
-    
+    try {
+        res.status(200).json({message : "logout sccessful"})
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({message : "Internal server"})
+    }
 }
