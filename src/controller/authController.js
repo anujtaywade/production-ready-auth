@@ -63,7 +63,7 @@ exports.login = async (req,res) => {
 
 exports.logout= async (req,res) => {
     try {
-        res.status(200).json({message : "logout sccessful"})
+        res.status(200).json({message : "logout successful"})
     } catch (error) {
         console.log(error)
         res.status(500).json({message : "Internal server"})
